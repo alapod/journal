@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #d9f2d9;
+    }
+
+
+    input[type=submit] {
+        background-color: #277227;
+        border-color: #277227;
+        opacity: 0.7;
+        border-radius: .25rem;
+        color: #fff;
+        padding: .75rem;
+    }
+
+    label {
+        padding: .75rem;
+        display: table-row;
+    }
+
+    input {
+        border-radius: .25rem;
+    }
+
+    textarea {
+        border-radius: .25rem;
+    }
+
+    </style>
+
+<div class="col-md-8 mt-3 left">
+
+        <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Publish">
+    </form>
+</div>
+{% endblock content %}
+

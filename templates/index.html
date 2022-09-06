@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #d9f2d9;
+    }
+
+    .head_text {
+        color: white;
+    }
+
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+
+    .btn-primary {
+        background-color: #277227;
+        border-color: #277227;
+        opacity: 0.7;
+    }
+    .btn:focus, .btn:hover {
+        background-color: #277227;
+        border-color: #277227;
+        opacity: 0.7;
+    }
+
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        {% if user.is_authenticated %}
+        <div class="col-md-8 mt-3 left">
+            <div class="card mb-4">
+                <a href="{% url 'new_post' %}" class="btn btn-primary">New entry</a></div>
+
+            {% for post in post_list %}
+            {% if post.author == user %}
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title" >{{ post.title }}</h2>
+                    {% if post.sentiment == 0 %}
+                    <p class="card-text text-muted h6">negative </p>
+                    {% else %}
+                    <p class="card-text text-muted h6">positive </p>
+                    {% endif %}
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                    <p class="card-text">{{post.content|slice:":200" }}</p>
+                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        Not logged in
+        {% endif %}
+    </div>
+</div>
+{%endblock%}
